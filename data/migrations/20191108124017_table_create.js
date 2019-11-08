@@ -13,7 +13,7 @@ exports.up = function (knex) {
         })
         .createTable("tasks", tbl => {
             tbl.increments();
-            tbl.text("description");
+            tbl.text("description").notNullable();
             tbl.text("notes");
             tbl.boolean("completed").notNullable().defaultTo(false);
             tbl
@@ -23,26 +23,26 @@ exports.up = function (knex) {
                 .references("id")
                 .inTable("projects")
         })
-        .createTable("project_resources", tbl => {
-            tbl
-                .integer("project_id")
-                .unsigned()
-                .notNullable()
-                .references("id")
-                .inTable("projects")
-            tbl
-                .integer("resource_id")
-                .unsigned()
-                .notNullable()
-                .references("id")
-                .inTable("resources")
-            tbl.primary(["project_id", "resource_id"])
-        });
-};
+//         .createTable("project_resources", tbl => {
+//             tbl
+//                 .integer("project_id")
+//                 .unsigned()
+//                 .notNullable()
+//                 .references("id")
+//                 .inTable("projects")
+//             tbl
+//                 .integer("resource_id")
+//                 .unsigned()
+//                 .notNullable()
+//                 .references("id")
+//                 .inTable("resources")
+//             tbl.primary(["project_id", "resource_id"])
+//         });
+ };
 
 exports.down = function (knex) {
     return knex.schema
-        .dropTableIfExists("project_resources")
+        // .dropTableIfExists("project_resources")
         .dropTableIfExists("tasks")
         .dropTableIfExists("resources")
         .dropTableIfExists("projects")
